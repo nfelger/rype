@@ -1,0 +1,6 @@
+2010/04/12
+  - Simple class structure for sending chat messages
+
+2010/04/11
+  - Started development, with a simple file that uses various chat-related aspects of the raw dbus-transported API.
+  - Added dependency: dbus => http://github.com/mvidner/ruby-dbus/downloads
