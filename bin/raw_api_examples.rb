@@ -22,7 +22,7 @@ Thread.new do
   class Notify < DBus::Object
     dbus_interface "com.Skype.API.Client" do
       dbus_method :Notify, "in data:s" do |args|
-        puts args.inspect
+        puts args
       end
     end
   end
