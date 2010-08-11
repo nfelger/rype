@@ -14,7 +14,7 @@ api.Invoke("NAME #{application_name}")
 api.Invoke("PROTOCOL 7")
 
 # Send a message.
-test_chat = '#nfelger/$sk_herald;387e8507ee5326ee'
+test_chat = 'enteryourchatidhere'
 api.Invoke("CHATMESSAGE #{test_chat} hi there.")
 
 # Register service for notifications from skype.

@@ -17,8 +17,8 @@ module Skype
       raise "Already attached." if @attached
 
       # Say hi to Skype.
-      invoke "NAME #{application_name}"
-      invoke "PROTOCOL 7"
+      api.Invoke "NAME #{application_name}"
+      api.Invoke "PROTOCOL 7"
 
       run_notification_thread
 
