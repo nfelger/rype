@@ -3,15 +3,15 @@
 Requirements
 ===
 
-1. Linux
-1. Skype
-1. dbus (via apt on Ubuntu)
-1. ruby-dbus:
+- Linux
+- Skype
+- dbus (via apt on Ubuntu)
+- ruby-dbus:
   - wget http://github.com/downloads/mvidner/ruby-dbus/ruby-dbus-0.3.1.tgz
   - tar xzf ruby-dbus-0.3.1.tgz
   - cd ruby-dbus-0.3.1
   - follow the instructions in README
-1. xvfb (if you want to run Skype head-less)
+- xvfb (if you want to run Skype head-less)
 
 Verify it's working
 ===
