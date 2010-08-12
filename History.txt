@@ -1,3 +1,6 @@
+2010/08/12
+  - Added some very basic instructions.
+
 2010/04/12
   - Simple class structure for sending chat messages
 
