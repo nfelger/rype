@@ -7,8 +7,7 @@ describe Skype, '.instance' do
 end
 
 describe Skype, '.attach' do
-  it "should forward attach to Skype::Api" do
-    Skype::Api.stub :attach
+  it "should delegate to Skype::Api" do
     Skype::Api.should_receive(:attach).with("chat id")
 
     Skype.attach("chat id")
@@ -20,4 +19,11 @@ describe Skype, '.chat' do
   it { should be_a(Skype::Chat) }
 end
 
+describe Skype, '.chats' do
+  it "should delegate to Skype::Chat" do
+    Skype::Chat.should_receive(:all)
+    
+    Skype.chats
+  end
+end
 
