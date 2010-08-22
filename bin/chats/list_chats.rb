@@ -7,4 +7,8 @@ require 'pp'
 
 Skype.attach
 
-pp Skype.chats
+Skype.chats do |chats|
+  chats.each do |chat|
+    p chat
+  end
+end

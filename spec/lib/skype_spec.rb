@@ -27,3 +27,11 @@ describe Skype, '.chats' do
   end
 end
 
+describe Skype, '.on' do
+  it "should delegate to Skype::Events" do
+    Skype::Events.should_receive(:on)
+    
+    Skype.on
+  end
+end
+

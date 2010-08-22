@@ -5,7 +5,6 @@ require 'skype'
 
 Skype.attach
 
-message_body = 'test hi'
-chat_id = 'enteryourchatidhere'
+chat_id, message_body = ARGV[0..1]
 
 Skype.chat(chat_id).send_message(message_body)

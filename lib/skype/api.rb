@@ -1,8 +1,15 @@
-require 'skype/chat'
 require 'dbus'
 require 'forwardable'
 
 module Skype
+  class Notify < DBus::Object
+    dbus_interface "com.Skype.API.Client" do
+      dbus_method :Notify, "in data:s" do |message|
+        Api.notify(message)
+      end
+    end
+  end
+
   class Api
     class << self
       extend Forwardable
@@ -25,10 +32,22 @@ module Skype
       @attached = true
     end
 
-    def invoke(message)
+    def invoke(message, &block)
       raise "Not attached to skype. Call Skype::Api.attach first." unless @attached
 
-      api.Invoke(message)
+      log_outgoing message
+      if block_given?
+        api.Invoke(message) do |headers, answer|
+          log_incoming answer
+          block.call(answer)
+        end
+      else
+        answer = api.Invoke(message) do |_, _|
+          # Huh? Without passing in a block, sometimes it hangs...??
+        end
+        log_incoming answer
+        answer
+      end
     end
 
     def on_notification(scope, proc=nil, &block)
@@ -39,17 +58,23 @@ module Skype
     end
 
     def notify(message)
+      log_incoming message
+      
       callbacks.keys.each do |key|
-        next unless message =~ Regexp.new("^#{key}")
-        callbacks[key].each{ |callback| callback.call(message) }
+        next unless match = Regexp.new("^#{key}").match(message)
+        callbacks[key].each{ |callback| callback.call(*match.captures) }
       end
     end
 
-    private
+  private
+
+    def initialize
+      # 'pu'a says no.
+    end
 
     def api
       @api ||= begin
-        skype_service    = bus.service("com.Skype.API")
+        skype_service = bus.service("com.Skype.API")
         skype_object  = skype_service.object('/com/Skype')
         skype_object.introspect
         skype_object["com.Skype.API"]
@@ -57,13 +82,14 @@ module Skype
     end
 
     def run_notification_thread
-      Thread.new do
-        receiver_service = bus.request_service("com.nikofelger.ruby-skype")
-        receiver_service.export(Notify.new("/com/Skype/Client"))
+      thread = Thread.new do
+        receiving_service = bus.request_service("com.nikofelger.ruby-skype")
+        receiving_service.export(Notify.new("/com/Skype/Client"))
         dbus_event_loop = DBus::Main.new
         dbus_event_loop << bus
         dbus_event_loop.run
       end
+      thread.run
     end
 
     def bus
@@ -73,16 +99,13 @@ module Skype
     def callbacks
       @callback ||= {}
     end
-
-    def initialize
+    
+    def log_incoming(message)
+      STDERR.puts "<- #{message}"
     end
-  end
-
-  class Notify < DBus::Object
-    dbus_interface "com.Skype.API.Client" do
-      dbus_method :Notify, "in data:s" do |message|
-        Api.notify(message)
-      end
+ 
+    def log_outgoing(message)
+      STDERR.puts "-> #{message}"
     end
   end
 end

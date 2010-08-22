@@ -1,23 +1,28 @@
+require 'skype/events'
+
 module Skype
   class Chat
     class << self
+      attr_accessor :chats
+
       def all
-        chats = Api.invoke("SEARCH CHATS")
+        chats if chats
+
+        Api.invoke("SEARCH CHATS")
+        sleep 0.01 while chats.nil?
         
-        chats[6..-1].split(', ').map do |chat_id| 
-          Chat.new(chat_id)
-        end
+        yield chats
       end
     end
 
-    attr_reader :chat_id
+    attr_reader :chatname
 
-    def initialize(chat_id)
-      @chat_id = chat_id
+    def initialize(chatname)
+      @chatname = chatname
     end
 
     def send_message(message)
-      Api.invoke("CHATMESSAGE #{@chat_id} #{message}")
+      Api.invoke("CHATMESSAGE #{@chatname} #{message}")
     end
   end
 end
