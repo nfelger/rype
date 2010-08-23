@@ -43,3 +43,9 @@ You can safely ignore warnings about missing fonts, but if they bother you, try:
 
   sudo aptitude install xfonts-100dpi xfonts-75dpi xfonts-scalable xfonts-cyrillic
 
+
+Small print
+===
+
+This product uses the Skype API but is not endorsed, certified or otherwise
+approved in any way by Skype.
