@@ -28,7 +28,7 @@ In order to work with the skype gem, there are a few requirements:
 - You may want Xvfb (if you want to run Skype head-less)
 
 
-## RUNNING
+## VERIFY YOUR INSTALLATION
 
 To confirm it's working, start skype and sign in. Open an irb session and:
 
