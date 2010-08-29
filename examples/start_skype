@@ -3,7 +3,7 @@
 export DISPLAY=:2
 
 if [[ ! -e /tmp/.X2-lock ]]
-then Xvfb :2
+then Xvfb :2 &
 fi
 
 skype &
