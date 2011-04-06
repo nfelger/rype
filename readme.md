@@ -1,7 +1,6 @@
-skype -- Library to talk to the Skype API
-====================================
+# skype – library to talk to the Skype API
 
-## DESCRIPTION
+## Description
 
 This library is a simple wrapper for Skype's dbus-based Linux API.
 
@@ -13,7 +12,7 @@ Currently, it has the following capabilities:
 * use the raw Skype protocol via Skype::Api#invoke and Skype::Api#on_notification. More information about the protocol at [developer.skype.com](http://developer.skype.com)
 
 
-## INSTALLATION
+## Installation
 
 In order to work with the skype gem, there are a few requirements:
 
@@ -28,7 +27,7 @@ In order to work with the skype gem, there are a few requirements:
 - You may want Xvfb (if you want to run Skype head-less)
 
 
-## VERIFY YOUR INSTALLATION
+## Verify your installation
 
 To confirm it's working, start skype and sign in. Then, open an irb session and:
 
@@ -43,29 +42,29 @@ To confirm it's working, start skype and sign in. Then, open an irb session and:
 If everything is set up correctly, Skype will now ask whether "ruby-skype" should be allowed to connect.
 
 
-## USAGE
+## Usage
 
-There are a few examples in `examples/` that should give you an idea of how 
+There are a few examples in `examples/` that should give you an idea of how
 to use the gem.
 
 
-## HEAD-LESS SKYPE
+## Head-less skype
 
 Say you want to be running an app that connects to skype on a box that won't have a display attached. For this use case, Xvfb is quite handy:
 
-  "Xvfb or X virtual framebuffer is an X11 server that performs all graphical operations in memory, not showing any screen output." (wikipedia)"
+> "Xvfb or X virtual framebuffer is an X11 server that performs all graphical operations in memory, not showing any screen output." (wikipedia)"
 
 In `examples/start_skype`, there's a shell script that shows how to start Skype and Xvfb.
 
 You can safely ignore warnings about missing fonts, but if they bother you, try:
 
-  sudo aptitude install xfonts-100dpi xfonts-75dpi xfonts-scalable xfonts-cyrillic
+     sudo aptitude install xfonts-100dpi xfonts-75dpi xfonts-scalable xfonts-cyrillic
 
 If Xvfb won't start at all, more drastic measures may be required:
 
-  sudo apt-get install xserver-xorg-core
+     sudo apt-get install xserver-xorg-core
 
-## SMALL PRINT
+## small print
 
 This product uses the Skype API but is not endorsed, certified or otherwise
 approved in any way by Skype.
