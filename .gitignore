@@ -1,5 +1,6 @@
 .belly
 .redcar
+*.gem
 pkg
 tags
 pkg
