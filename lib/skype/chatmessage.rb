@@ -16,6 +16,16 @@ module Skype
       get_property("BODY", &block)
     end
 
+    def from(&block)
+      return unless block_given?
+      get_property("FROM_HANDLE", &block)
+    end
+
+    def from_name(&block)
+      return unless block_given?
+      get_property("FROM_DISPNAME", &block)
+    end
+
   private
     def get_property(property, &block)
       return unless block_given?
