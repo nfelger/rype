@@ -13,5 +13,4 @@ Skype.on(:chatmessage_received) do |chatmessage|
   end
 end
 
-Skype.attach
-Skype.thread.join
+Skype.attach.join
