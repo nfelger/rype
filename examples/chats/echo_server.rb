@@ -11,8 +11,7 @@ Skype.on(:chatmessage_received) do |chatmessage|
       chat.send_message(body)
     end
   end
-end  
+end
 
 Skype.attach
-
-Thread.list.each{|t| t.join}
+Skype.thread.join
