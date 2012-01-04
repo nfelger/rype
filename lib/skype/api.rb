@@ -13,12 +13,14 @@ module Skype
   class Api
     class << self
       extend Forwardable
-      def_delegators :instance, :attach, :invoke, :on_notification, :notify
+      def_delegators :instance, :attach, :invoke, :on_notification, :notify, :thread
 
       def instance
         @instance ||= new
       end
     end
+
+    attr_reader :thread
 
     def attach(application_name="ruby-skype")
       raise "Already attached." if @attached
@@ -82,14 +84,13 @@ module Skype
     end
 
     def run_notification_thread
-      thread = Thread.new do
+      @thread ||= Thread.new do
         receiving_service = bus.request_service("com.nikofelger.ruby-skype")
         receiving_service.export(Notify.new("/com/Skype/Client"))
         dbus_event_loop = DBus::Main.new
         dbus_event_loop << bus
         dbus_event_loop.run
       end
-      thread.run
     end
 
     def bus
