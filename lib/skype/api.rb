@@ -13,27 +13,27 @@ module Skype
   class Api
     class << self
       extend Forwardable
-      def_delegators :instance, :attach, :invoke, :on_notification, :notify
+      def_delegators :instance, :attach, :invoke, :on_notification, :notify, :thread
 
       def instance
         @instance ||= new
       end
     end
 
+    attr_reader :thread
+
     def attach(application_name="ruby-skype")
-      raise "Already attached." if @attached
+      raise "Already attached." if attached?
 
       # Say hi to Skype.
       api.Invoke "NAME #{application_name}"
       api.Invoke "PROTOCOL 7"
 
       run_notification_thread
-
-      @attached = true
     end
 
     def invoke(message, &block)
-      raise "Not attached to skype. Call Skype::Api.attach first." unless @attached
+      raise "Not attached to skype. Call Skype::Api.attach first." unless attached?
 
       log_outgoing message
       if block_given?
@@ -51,7 +51,7 @@ module Skype
     end
 
     def on_notification(scope, proc=nil, &block)
-      raise "Need to register callbacks before attaching to Skype." if @attached
+      raise "Need to register callbacks before attaching to Skype." if attached?
 
       callbacks[scope] ||= []
       callbacks[scope] << (proc ? proc : block)
@@ -59,7 +59,7 @@ module Skype
 
     def notify(message)
       log_incoming message
-      
+
       callbacks.keys.each do |key|
         next unless match = Regexp.new("^#{key}").match(message)
         callbacks[key].each{ |callback| callback.call(*match.captures) }
@@ -72,6 +72,10 @@ module Skype
       # 'pu'a says no.
     end
 
+    def attached?
+      thread and thread.alive?
+    end
+
     def api
       @api ||= begin
         skype_service = bus.service("com.Skype.API")
@@ -82,14 +86,13 @@ module Skype
     end
 
     def run_notification_thread
-      thread = Thread.new do
+      @thread ||= Thread.new do
         receiving_service = bus.request_service("com.nikofelger.ruby-skype")
         receiving_service.export(Notify.new("/com/Skype/Client"))
         dbus_event_loop = DBus::Main.new
         dbus_event_loop << bus
         dbus_event_loop.run
       end
-      thread.run
     end
 
     def bus
