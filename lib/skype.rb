@@ -6,6 +6,9 @@ require 'skype/chatmessage'
 require 'skype/events'
 
 module Skype
+  Offline = Class.new StandardError
+  Denied  = Class.new StandardError
+
   class << self
     extend Forwardable
 

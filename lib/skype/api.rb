@@ -26,7 +26,14 @@ module Skype
       raise "Already attached." if attached?
 
       # Say hi to Skype.
-      api.Invoke "NAME #{application_name}"
+      status, = api.Invoke "NAME #{application_name}"
+
+      if status == 'CONNSTATUS OFFLINE'
+        raise Skype::Offline
+      elsif status != 'OK'
+        raise SKype::Denied
+      end
+
       api.Invoke "PROTOCOL 7"
 
       run_notification_thread

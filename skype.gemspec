@@ -19,6 +19,6 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.has_rdoc      = false
   s.rubygems_version = %q{1.3.7}
-  s.add_dependency("ruby-dbus", ["~> 0.6.0"])
+  s.add_dependency("ruby-dbus", [">= 0.6"])
   s.add_development_dependency("rspec")
 end
