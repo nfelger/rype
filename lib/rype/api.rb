@@ -1,7 +1,7 @@
 require 'dbus'
 require 'forwardable'
 
-module Skype
+module Rype
   class Notify < DBus::Object
     dbus_interface "com.Skype.API.Client" do
       dbus_method :Notify, "in data:s" do |message|
@@ -22,16 +22,16 @@ module Skype
 
     attr_reader :thread
 
-    def attach(application_name="ruby-skype")
+    def attach(application_name="rype")
       raise "Already attached." if attached?
 
       # Say hi to Skype.
       status, = api.Invoke "NAME #{application_name}"
 
       if status == 'CONNSTATUS OFFLINE'
-        raise Skype::Offline
+        raise Rype::Offline
       elsif status != 'OK'
-        raise SKype::Denied
+        raise Rype::Denied
       end
 
       api.Invoke "PROTOCOL 7"
@@ -40,7 +40,7 @@ module Skype
     end
 
     def invoke(message, &block)
-      raise "Not attached to skype. Call Skype::Api.attach first." unless attached?
+      raise "Not attached to Skype. Call Rype::Api.attach first." unless attached?
 
       log_outgoing message
       if block_given?

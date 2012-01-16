@@ -1,4 +1,4 @@
-module Skype
+module Rype
   class Chatmessage
     def initialize(id)
       @chatmessage_id = id

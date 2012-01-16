@@ -1,18 +1,18 @@
 require 'thread'
 
-module Skype
+module Rype
   class Events
     class << self
       def on(event)
         case event
 
         when :chatmessage_received
-          Skype::Api.instance.on_notification("CHATMESSAGE (.*) STATUS RECEIVED") do |chatmessage_id|
+          Rype::Api.instance.on_notification("CHATMESSAGE (.*) STATUS RECEIVED") do |chatmessage_id|
             yield Chatmessage.new(chatmessage_id)
           end
 
         when :chats_received
-          Skype::Api.instance.on_notification("CHATS (.*)") do |chatlist|
+          Rype::Api.instance.on_notification("CHATS (.*)") do |chatlist|
             yield chatlist.split(', ').map { |chatname| Chat.new(chatname) }
           end
         end
@@ -20,8 +20,8 @@ module Skype
       
       def initialize_listeners
         mutex = Mutex.new
-        Skype::Events.on(:chats_received) do |chats|          
-          mutex.synchronize { Skype::Chat.chats = chats }
+        Rype::Events.on(:chats_received) do |chats|          
+          mutex.synchronize { Rype::Chat.chats = chats }
         end
       end
     end

@@ -3,15 +3,13 @@ $:.push File.expand_path("../lib", __FILE__)
 
 Gem::Specification.new do |s|
   s.version     = "0.0.1"
-  s.name        = "skype"
+  s.name        = "rype"
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Niko Felger"]
   s.email       = ["niko.felger@gmail.com"]
-  s.homepage    = "https://github.com/nfelger/skype"
+  s.homepage    = "https://github.com/nfelger/rype"
   s.summary     = %q{Unofficial Skype Api wrapper}
   s.description = %q{Unofficial Skype Api wrapper}
-
-  s.rubyforge_project = "skype"
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")

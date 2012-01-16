@@ -1,6 +1,6 @@
-require 'skype/events'
+require 'rype/events'
 
-module Skype
+module Rype
   class Chat
     class << self
       attr_accessor :chats

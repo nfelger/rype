@@ -2,10 +2,10 @@
 
 $LOAD_PATH << File.join(File.dirname(__FILE__), '..', '..', 'lib')
 
-require 'skype'
+require 'rype'
 require 'pp'
 
-Skype.on(:chatmessage_received) do |chatmessage|
+Rype.on(:chatmessage_received) do |chatmessage|
   chatmessage.chat do |chat|
     chatmessage.body do |body|
       chat.send_message(body)
@@ -13,4 +13,4 @@ Skype.on(:chatmessage_received) do |chatmessage|
   end
 end
 
-Skype.attach.join
+Rype.attach.join

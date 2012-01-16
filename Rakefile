@@ -25,12 +25,12 @@ task :default => ["spec", "features"]
 spec = Gem::Specification.new do |s|
 
   # Change these as appropriate
-  s.name              = "skype"
+  s.name              = "rype"
   s.version           = "0.1.0"
   s.summary           = "Skype Api wrapper"
   s.author            = "Niko Felger"
   s.email             = "niko.felger@gmail.com"
-  s.homepage          = "http://github.com/nfelger/skype"
+  s.homepage          = "http://github.com/nfelger/rype"
 
   s.has_rdoc          = false
   # You should probably have a README of some kind. Change the filename

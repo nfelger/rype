@@ -1,6 +1,6 @@
 require 'forwardable'
 
-module Skype
+module Rype
   class FakeApi < Api
     class << self
       extend Forwardable

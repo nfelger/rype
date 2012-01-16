@@ -1,4 +1,4 @@
-# skype – library to talk to the Skype API
+# rype – Ruby library to talk to the Skype API
 
 ## Description
 
@@ -9,12 +9,12 @@ Currently, it has the following capabilities:
 * Get a list of your chats,
 * send chat messages,
 * receive chat messages,
-* use the raw Skype protocol via Skype::Api#invoke and Skype::Api#on_notification. More information about the protocol at [developer.skype.com](http://developer.skype.com)
+* use the raw Skype protocol via Rype::Api#invoke and Rype::Api#on_notification. More information about the protocol at [developer.skype.com](http://developer.skype.com)
 
 
 ## Installation
 
-In order to work with the skype gem, there are a few requirements:
+In order to work with the rype gem, there are a few requirements:
 
 - You need to be on Linux
 - You need to have Skype running
@@ -37,9 +37,9 @@ To confirm it's working, start skype and sign in. Then, open an irb session and:
     client_to_skype = skype_service.object('/com/Skype')
     client_to_skype.introspect
     api = client_to_skype["com.Skype.API"]
-    api.Invoke("NAME ruby-skype")
+    api.Invoke("NAME rype")
 
-If everything is set up correctly, Skype will now ask whether "ruby-skype" should be allowed to connect.
+If everything is set up correctly, Skype will now ask whether "rype" should be allowed to connect.
 
 
 ## Usage
@@ -48,9 +48,9 @@ There are a few examples in `examples/` that should give you an idea of how
 to use the gem.
 
 
-## Head-less skype
+## Head-less Skype
 
-Say you want to be running an app that connects to skype on a box that won't have a display attached. For this use case, Xvfb is quite handy:
+Say you want to be running an app that connects to Skype on a box that won't have a display attached. For this use case, Xvfb is quite handy:
 
 > "Xvfb or X virtual framebuffer is an X11 server that performs all graphical operations in memory, not showing any screen output." (wikipedia)"
 

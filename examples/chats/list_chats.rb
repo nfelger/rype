@@ -2,12 +2,12 @@
 
 $LOAD_PATH << File.join(File.dirname(__FILE__), '..', '..', 'lib')
 
-require 'skype'
+require 'rype'
 require 'pp'
 
-Skype.attach
+Rype.attach
 
-Skype.chats do |chats|
+Rype.chats do |chats|
   chats.each do |chat|
     p chat
   end
