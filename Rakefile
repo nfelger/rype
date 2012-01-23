@@ -1,13 +1,8 @@
 require "rubygems"
-require "rake/gempackagetask"
-require "rake/rdoctask"
 
-require "spec"
-require "spec/rake/spectask"
-Spec::Rake::SpecTask.new do |t|
-  t.spec_opts = %w(--format specdoc --colour)
-  t.libs = ["spec"]
-end
+require "rspec"
+require 'rspec/core/rake_task'
+RSpec::Core::RakeTask.new(:spec)
 
 require 'cucumber'
 require 'cucumber/rake/task'
@@ -26,35 +21,28 @@ spec = Gem::Specification.new do |s|
 
   # Change these as appropriate
   s.name              = "rype"
-  s.version           = "0.1.0"
-  s.summary           = "Skype Api wrapper"
-  s.author            = "Niko Felger"
+  s.version           = "0.0.2"
+  s.authors           = ["Niko Felger"]
   s.email             = "niko.felger@gmail.com"
   s.homepage          = "http://github.com/nfelger/rype"
+  s.summary           = %q{Unofficial Skype Api wrapper}
+  s.description       = %q{Unofficial Skype Api wrapper}
 
-  s.has_rdoc          = false
-  # You should probably have a README of some kind. Change the filename
-  # as appropriate
-  # s.extra_rdoc_files  = %w(README)
-  # s.rdoc_options      = %w(--main README)
-
-  # Add any extra files to include in the gem (like your README)
-  s.files             = %w(History.txt) + Dir.glob("{bin,spec,lib/**/*}")
-  s.executables       = FileList["bin/**"].map { |f| File.basename(f) }
+  s.files             = `git ls-files`.split("\n")
+  s.test_files        = `git ls-files -- {test,spec,features}/*`.split("\n")
+  s.executables       = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths     = ["lib"]
+  s.has_rdoc          = false
 
-  # If you want to depend on other gems, add them here, along with any
-  # relevant versions
-  # s.add_dependency("some_other_gem", "~> 0.1.0")
+  s.add_dependency("ruby-dbus", [">= 0.6"])
 
-  # If your tests use any gems, include them here
   s.add_development_dependency("rspec")
   s.add_development_dependency("cucumber")
+  s.add_development_dependency("rake")
 end
 
-# To publish your gem online, install the 'gemcutter' gem; Read more 
-# about that here: http://gemcutter.org/pages/gem_docs
-Rake::GemPackageTask.new(spec) do |pkg|
+require "rubygems/package_task"
+Gem::PackageTask.new(spec) do |pkg|
   pkg.gem_spec = spec
 end
 
@@ -66,13 +54,3 @@ end
 
 task :package => :gemspec
 
-# Generate documentation
-Rake::RDocTask.new do |rd|
-  rd.rdoc_files.include("lib/**/*.rb")
-  rd.rdoc_dir = "rdoc"
-end
-
-desc 'Clear out RDoc and generated packages'
-task :clean => [:clobber_rdoc, :clobber_package] do
-  rm "#{spec.name}.gemspec"
-end
