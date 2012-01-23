@@ -24,5 +24,23 @@ module Rype
     def send_message(message)
       Api.invoke("CHATMESSAGE #{@chatname} #{message}")
     end
+
+    def topic(&block)
+      get_property('TOPIC', &block)
+    end
+
+    def members(&block)
+      get_property('MEMBERS') do |member_list|
+        yield member_list.split(/ /)
+      end
+    end
+
+  private
+    def get_property(property, &block)
+      return unless block_given?
+      Api.invoke("GET CHAT #{chatname} #{property}") do |message|
+        yield message.split[3..-1].join(' ')
+      end
+    end
   end
 end
