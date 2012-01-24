@@ -35,6 +35,10 @@ module Rype
       end
     end
 
+    def add_members(members)
+      Api.invoke("ALTER CHAT #{@chatname} ADDMEMBERS #{members.join(' ')}")
+    end
+
   private
     def get_property(property, &block)
       return unless block_given?
