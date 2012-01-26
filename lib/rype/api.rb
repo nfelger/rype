@@ -25,8 +25,10 @@ module Rype
     def attach(application_name="rype")
       raise "Already attached." if attached?
 
+      @application_name = application_name
+
       # Say hi to Skype.
-      status, = api.Invoke "NAME #{application_name}"
+      status, = api.Invoke "NAME #{@application_name}"
 
       if status == 'CONNSTATUS OFFLINE'
         raise Rype::Offline
@@ -94,7 +96,15 @@ module Rype
 
     def run_notification_thread
       @thread ||= Thread.new do
-        receiving_service = bus.request_service("com.nikofelger.ruby-skype")
+        callback_interface = Class.new(DBus::Object) do
+          dbus_interface "com.Skype.API.Client" do
+            dbus_method :Notify, "in data:s" do |message|
+              Api.notify(message)
+            end
+          end
+        end
+
+        receiving_service = bus.request_service("com.nikofelger.rype.#{@application_name}.#{Process.pid}")
         receiving_service.export(Notify.new("/com/Skype/Client"))
         dbus_event_loop = DBus::Main.new
         dbus_event_loop << bus

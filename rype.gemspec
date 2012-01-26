@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = "rype"
-  s.version = "0.0.2"
+  s.version = "0.0.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Niko Felger"]
-  s.date = "2012-01-23"
+  s.date = "2012-01-26"
   s.description = "Unofficial Skype Api wrapper"
   s.email = "niko.felger@gmail.com"
   s.files = [".gitignore", ".travis.yml", "Gemfile", "History.txt", "LICENSE", "Rakefile", "examples/chats/echo_server.rb", "examples/chats/list_chats.rb", "examples/chats/send_chat.rb", "examples/start_skype", "features/receive_chatmessage.feature", "features/send_chatmessage.feature", "features/step_definitions/skype_steps.rb", "features/support/env.rb", "features/support/lib/fake_api.rb", "lib/rype.rb", "lib/rype/api.rb", "lib/rype/chat.rb", "lib/rype/chatmessage.rb", "lib/rype/events.rb", "readme.md", "rype.gemspec", "spec/lib/rype/chat_spec.rb", "spec/lib/rype_spec.rb", "spec/spec_helper.rb"]
