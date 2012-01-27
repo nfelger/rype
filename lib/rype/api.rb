@@ -98,7 +98,7 @@ module Rype
 
         receiving_service_name = "com.nikofelger.rype-#{@application_name.gsub(/[^A-Za-z0-9-]/, '-')}-#{Process.pid}"
         receiving_service = bus.request_service(receiving_service_name)
-        receiving_service.export(Notify.new("/com/Skype/Client"))
+        receiving_service.export(callback_interface.new("/com/Skype/Client"))
         dbus_event_loop = DBus::Main.new
         dbus_event_loop << bus
         dbus_event_loop.run
