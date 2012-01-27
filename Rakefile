@@ -21,7 +21,7 @@ spec = Gem::Specification.new do |s|
 
   # Change these as appropriate
   s.name              = "rype"
-  s.version           = "0.0.3"
+  s.version           = "0.0.4"
   s.authors           = ["Niko Felger"]
   s.email             = "niko.felger@gmail.com"
   s.homepage          = "http://github.com/nfelger/rype"
