@@ -2,14 +2,6 @@ require 'dbus'
 require 'forwardable'
 
 module Rype
-  class Notify < DBus::Object
-    dbus_interface "com.Skype.API.Client" do
-      dbus_method :Notify, "in data:s" do |message|
-        Api.notify(message)
-      end
-    end
-  end
-
   class Api
     class << self
       extend Forwardable
