@@ -114,11 +114,11 @@ module Rype
     end
     
     def log_incoming(message)
-      STDERR.puts "<- #{message}"
+      Logger.debug "<- #{message}"
     end
  
     def log_outgoing(message)
-      STDERR.puts "-> #{message}"
+      Logger.debug "-> #{message}"
     end
   end
 end
