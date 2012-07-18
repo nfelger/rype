@@ -4,6 +4,7 @@ require 'rype/api'
 require 'rype/chat'
 require 'rype/chatmessage'
 require 'rype/events'
+require 'rype/logger'
 
 module Rype
   Offline = Class.new StandardError
